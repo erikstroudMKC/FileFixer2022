@@ -248,8 +248,15 @@ def myOpen(self):
         for i in range(len(line_list)):
 
             line_len = len(line_list[i].split(','))
+            if "1,2,3" in line_list[i]:
+                print(line_list[i].replace("1,2,3", "123"))
+                line_list[i] = line_list[i].replace('1,2,3', '123')
+
 
             parameters = line_list[i].split(',')
+            # if line_len > 3 and line_len != 6:
+            #     print("line number " + str(i))
+            #     print(line_list[i] + '    ' + str(line_len))
             ##            if line_len == 3:
             ##
             ##                print(str(line_len) + ' - ' + line_list[i] + ' - ' + str(parameters[1].isnumeric()))
@@ -257,6 +264,9 @@ def myOpen(self):
             ##                print(str(line_len) + ' - ' + line_list[i])
 
             if "Net total:" not in line_list[i] or "net total" not in line_list[i] or "subtotal" not in line_list[i]:
+
+
+
                 try:
                     if parameters[2] == "8000000" and line_len != 6:
                         line_list[i] = parameters[0] + ',' + parameters[1] + ',' + parameters[2] + ',' + parameters[
@@ -298,11 +308,7 @@ def myOpen(self):
                 except:
                     pass
                     # print("No processing needed for line " + str(i))
-                try:
-                    if 'CNS.BR.S{1,2,3}' in line_list[i]:
-                        line_list[i] = line_list[i].replace('CNS.BR.S{1,2,3}', 'CNS.BR.S{1 2 3}')
-                except:
-                    pass
+
                 try:
                     if 'FS1' in line_list[i]:
                         line_list[i] = line_list[i].replace('1", 2", & 3" Fillers', '1" Filler')
