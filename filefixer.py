@@ -246,17 +246,35 @@ def myOpen(self):
     line_list = file.readlines()
     for x in range(2):
         for i in range(len(line_list)):
+            if "},(" in line_list[i]:
+                print(line_list[i])
+                line_list[i] = line_list[i].replace("},(", '},-')
+                line_list[i] = line_list[i].replace(")", '')
 
             line_len = len(line_list[i].split(','))
             if "1,2,3" in line_list[i]:
                 print(line_list[i].replace("1,2,3", "123"))
                 line_list[i] = line_list[i].replace('1,2,3', '123')
 
+            if ",  EDGEBAND" in line_list[i]:
+                line_list[i] = line_list[i].replace(",  EDGEBAND", " EDGEBAND")
+
+            if "EDGES,  FINISH" in line_list[i]:
+                line_list[i] = line_list[i].replace("EDGES,  FINISH", "EDGES FINISH")
+
+            if "VB12, VSB24, VB12" in line_list[i]:
+                line_list[i] = line_list[i].replace("VB12, VSB24, VB12","VB12 VSB24 VB12")
+
+            if "VB12UD, VSB24, VB12UD" in line_list[i]:
+                line_list[i] = line_list[i].replace("VB12UD, VSB24, VB12UD", "VB12UD VSB24 VB12UD")
+
+
+
 
             parameters = line_list[i].split(',')
-            # if line_len > 3 and line_len != 6:
-            #     print("line number " + str(i))
-            #     print(line_list[i] + '    ' + str(line_len))
+           ## if line_len > 3 and line_len != 6:
+                #3 print("line number " + str(i))
+                ## print(line_list[i] + '    ' + str(line_len))
             ##            if line_len == 3:
             ##
             ##                print(str(line_len) + ' - ' + line_list[i] + ' - ' + str(parameters[1].isnumeric()))
@@ -282,7 +300,7 @@ def myOpen(self):
                 try:
 
                     if line_len == 7:
-                        if parameters[5].isnumeric() == True:
+                        if parameters[5].isnumeric() == True or '-' in parameters[5]:
                             line_list[i] = parameters[0] + ',' + parameters[1] + ',' + parameters[2] + ',' + parameters[
                                 3] + ',' + parameters[4] + ',' + parameters[5] + '' + parameters[6]
                         else:
